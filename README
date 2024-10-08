@@ -13,22 +13,22 @@ This project demonstrates how to use the [PyWa](https://pywa.readthedocs.io/en/l
 
 ### 1. Clone the Repository
 
-```
+```bash
 git clone https://github.com/ArielS1/pywa-aws-lambda.git
 cd pywa-aws-lambda
 ```
 
 ### 2. Create AWS ECR Repository
 
-\```bash
+```bash
 aws ecr create-repository --repository-name pywa-aws-lambda
-\```
+```
 
 ### 3. Build and Push Docker Image
 
 I followed [this guide](https://blog.searce.com/fastapi-container-app-deployment-using-aws-lambda-and-api-gateway-6721904531d0) but made some adjustments to overcome specific issues. Here’s the modified process:
 
-```
+```bash
 aws ecr get-login-password --region <your-region> | docker login --username AWS --password-stdin <your-ecr-url>.amazonaws.com
 docker build --provenance=false --platform linux/arm64 -t pywa-aws-lambda .
 docker tag pywa-aws-lambda:latest <your-ecr-url>.amazonaws.com/pywa-aws-lambda:latest
@@ -64,11 +64,9 @@ Refer to the [PyWa documentation](https://pywa.readthedocs.io/en/latest/) to lea
 
 After your first function deployment, register the webhook by invoking the following `PATCH` request:
 
-```
+```bash
 https://<your-deployed-lambda-url>/RegisterWebhook
 ```
-
-This step is required only once after deployment.
 
 ### 8. Test
 
